@@ -1,0 +1,44 @@
+package RecipeManagementSystem.model;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class Recipe implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String title;
+    private String description;
+    private List<String> ingredients;
+    private boolean isFavorite;
+
+    public Recipe(String title, String description, List<String> ingredients) {
+        this.title = title;
+        this.description = description;
+        this.ingredients = ingredients;
+        this.isFavorite = false;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<String> getIngredients() {
+        return ingredients;
+    }
+
+    public String getFormattedIngredients() {
+        return String.join(", ", ingredients);
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+}
