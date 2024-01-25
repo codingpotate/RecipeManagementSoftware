@@ -6,26 +6,21 @@ import java.util.List;
 import java.util.Scanner;
 
 import RecipeManagementSystem.manager.ConcreteRecipeManagerFactory;
-import RecipeManagementSystem.manager.ConcreteUserAuthManagerFactory;
 import RecipeManagementSystem.manager.InputHandler;
+import RecipeManagementSystem.manager.FileHandler;
+import RecipeManagementSystem.manager.MealPlanManager;
 import RecipeManagementSystem.manager.RecipeManager;
 import RecipeManagementSystem.manager.RecipeManagerFactory;
-import RecipeManagementSystem.manager.UserAuthManagerFactory;
 import RecipeManagementSystem.manager.UserAuthenticationManager;
 import RecipeManagementSystem.model.Recipe;
 
 public class ConsoleUI {
-    private static InputHandler inputHandler = new InputHandler();
-
-    private static UserAuthenticationManager authenticationManager = UserAuthenticationManager.getInstance();
+    private static final InputHandler inputHandler = new InputHandler();
+    private static final UserAuthenticationManager authenticationManager = UserAuthenticationManager.getInstance();
+    private static final MealPlanManager mealPlanManager = new MealPlanManager();
 
     public static void main(String[] args) {
-        RecipeManagerFactory recipeManagerFactory = new ConcreteRecipeManagerFactory();
-        UserAuthManagerFactory authManagerFactory = new ConcreteUserAuthManagerFactory();
-
-        RecipeManager recipeManager = recipeManagerFactory.createRecipeManager();
-        UserAuthenticationManager authenticationManager = authManagerFactory.createAuthManager();
-
+        RecipeManager recipeManager = initializeRecipeManager();
         boolean exitRequested = false;
 
         while (!exitRequested) {
@@ -85,6 +80,37 @@ public class ConsoleUI {
         }
     }
 
+    private static RecipeManager initializeRecipeManager() {
+        RecipeManagerFactory recipeManagerFactory = new ConcreteRecipeManagerFactory();
+        return recipeManagerFactory.createRecipeManager();
+    }
+
+
+    private static void printMainMenu() {
+        System.out.println("Main Menu:");
+        System.out.println("1. Log In");
+        System.out.println("2. Recipe Management");
+        System.out.println("3. Search Recipe");
+        System.out.println("4. View Recipes");
+        System.out.println("5. Log Out");
+        System.out.println("6. Save and Exit");
+        System.out.println("7. Search Recipe");
+        System.out.println("8. Create Shopping List");
+        System.out.println("9. View Shopping List");
+        System.out.println("10. Make a Meal Plan");
+        System.out.println("11. View Meal Plans");
+        System.out.println("12. Clear a Meal Plan");
+        System.out.println("13. Manage Favorites");
+        System.out.println("14. Copy Recipe");
+    }
+
+    private static void printRecipeMenu() {
+        System.out.println("Recipe Management:");
+        System.out.println("1. Add Recipe");
+        System.out.println("2. Delete Recipe");
+        System.out.println("3. Back to Main Menu");
+    }
+
     private static String getLineInput(String prompt) {
         return inputHandler.nextLine(prompt);
     }
@@ -112,31 +138,6 @@ public class ConsoleUI {
                     break;
             }
         }
-    }
-
-    private static void printMainMenu() {
-        System.out.println("Main Menu:");
-        System.out.println("1. Log In");
-        System.out.println("2. Recipe Management");
-        System.out.println("3. Search Recipe");
-        System.out.println("4. View Recipes");
-        System.out.println("5. Log Out");
-        System.out.println("6. Save and Exit");
-        System.out.println("7. Search Recipe");
-        System.out.println("8. Create Shopping List");
-        System.out.println("9. View Shopping List");
-        System.out.println("10. Make a Meal Plan");
-        System.out.println("11. View Meal Plans");
-        System.out.println("12. Clear a Meal Plan");
-        System.out.println("13. Manage Favorites");
-        System.out.println("13. Copy Recipe");
-    }
-
-    private static void printRecipeMenu() {
-        System.out.println("Recipe Management:");
-        System.out.println("1. Add Recipe");
-        System.out.println("2. Delete Recipe");
-        System.out.println("3. Back to Main Menu");
     }
 
     private static int getChoice() {
@@ -348,7 +349,7 @@ public class ConsoleUI {
 
         if (recipeIndex >= 1 && recipeIndex <= recipes.size()) {
             Recipe selectedRecipe = recipes.get(recipeIndex - 1);
-            recipeManager.planMeal(day, selectedRecipe);
+            mealPlanManager.planMeal(day, selectedRecipe);  // Call planMeal on the instance
             System.out.println("Meal planned successfully!");
         } else {
             System.out.println("Invalid choice. Please try again.");
@@ -357,9 +358,9 @@ public class ConsoleUI {
 
     private static void viewMealPlan(RecipeManager recipeManager) {
         System.out.print("Enter the day to view the meal plan: ");
-        String day = inputHandler.getLineInput(""); // Change 'scanner' to 'inputHandler'
+        String day = inputHandler.getLineInput("");
 
-        Recipe plannedMeal = recipeManager.getPlannedMeal(day);
+        Recipe plannedMeal = mealPlanManager.getPlannedMeal(day);  // Call getPlannedMeal on the instance
 
         if (plannedMeal != null) {
             System.out.println("Planned meal for " + day + ": " + plannedMeal.getTitle());
@@ -370,9 +371,9 @@ public class ConsoleUI {
 
     private static void clearMealPlan(RecipeManager recipeManager) {
         System.out.print("Enter the day to clear the meal plan: ");
-        String day = inputHandler.getLineInput(""); // Change 'scanner' to 'inputHandler'
+        String day = inputHandler.getLineInput("");
 
-        recipeManager.clearMealPlan();
+        mealPlanManager.clearMealPlan();  // Call clearMealPlan on the instance
         System.out.println("Meal plan cleared for " + day + ".");
     }
 
@@ -431,7 +432,7 @@ public class ConsoleUI {
     }
 
     private static void saveRecipes(RecipeManager recipeManager) {
-        recipeManager.saveRecipesToFile();
+        recipeManager.saveRecipes();
         System.out.println("Recipes saved successfully.");
     }
 
@@ -459,7 +460,8 @@ public class ConsoleUI {
                 System.out.println(item);
             }
             recipeManager.addShoppingList(shoppingList.toString()); // Save shopping list
-            recipeManager.saveShoppingListsToFile(); // Save shopping lists
+            FileHandler fileHandler = new FileHandler();
+            fileHandler.saveShoppingListsToFile(shoppingList, "filename.txt");
         } else {
             System.out.println("No recipes selected for the shopping list.");
         }
