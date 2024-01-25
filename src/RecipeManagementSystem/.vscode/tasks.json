@@ -1,35 +1,35 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "build",
-      "type": "shell",
-      "command": "javac",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "args": [
-        "-d",
-        "out",
-        "src/**/*.java"
-      ],
-      "problemMatcher": "$java"
-    },
-    {
-      "label": "run",
-      "type": "shell",
-      "command": "java",
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      },
-      "args": [
-        "-cp",
-        "out",
-        "RecipeManagementSystem.ui.ConsoleUI"
-      ],
-      "problemMatcher": "$java"
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "javac",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "args": [
+                "-d",
+                "out",
+                "src/**/*.java"
+            ],
+            "problemMatcher": "$java"
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "java",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "args": [
+                "-cp",
+                "out",
+                "RecipeManagementSystem.ui.ConsoleUI"
+            ],
+            "problemMatcher": "$java"
+        }
+    ]
 }

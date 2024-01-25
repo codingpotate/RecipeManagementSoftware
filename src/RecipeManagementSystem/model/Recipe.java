@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Recipe implements Serializable {
-    private static final long serialVersionUID = 1L;
-
     private String title;
     private String description;
     private List<String> ingredients;

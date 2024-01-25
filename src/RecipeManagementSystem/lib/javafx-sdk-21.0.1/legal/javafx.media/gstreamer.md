@@ -1,7 +1,6 @@
 ## GStreamer v1.20.1
 
 ### GStreamer Notice
-
 ```
 
 You are receiving a copy of GStreamer, Version: 1.20.1 in either source or
@@ -28,7 +27,6 @@ code is here:
 ```
 
 ### LICENSE
-
 ```
 There are multiple licenses that apply to different parts of GStreamer. The
 overarching license is LGPL 2.1, however parts are covered by BSD-style
@@ -36,7 +34,6 @@ licenses.
 ```
 
 #### LGPL 2.1 License
-
 ```
 Copyright (C) 2010-2012 Alexander Saprykin <xelfium@gmail.com>
 Copyright (C) 2001-2002, 2004-2005 Andy Wingo <apwingo@eos.ncsu.edu>
@@ -647,7 +644,6 @@ Sebastian Dröge <slomo@coaxion.net>
 ```
 
 #### BSD License
-
 ```
 ---------------------------------
 The below license applies to the following files:
@@ -691,7 +687,6 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
 #### Permissive License
-
 ```
 ---------------------------------
 The below license applies to the following files:

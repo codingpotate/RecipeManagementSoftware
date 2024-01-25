@@ -1,7 +1,6 @@
 ## GNU Glib v2.72.0
 
 ### Glib Notice
-
 ```
 
 You are receiving a copy of GNU Glib, Version: 2.72.0 in either source or
@@ -30,7 +29,6 @@ code is here:
 ```
 
 ### LICENSE
-
 ```
 There are multiple licenses that apply to different parts of Glib. The
 overarching license is LGPL 2.1, however parts are covered by MIT and
@@ -38,7 +36,6 @@ other parts by BSD-style licenses.
 ```
 
 #### LGPL 2.1 License
-
 ```
 Copyright (C) 1995 A.M. Kuchling
 Copyright (C) 2005-2006 Alexander Larsson <alexl@redhat.com>
@@ -627,7 +624,6 @@ Takuji Nishimura   <nisimura@math.keio.ac.jp>
 ```
 
 #### MIT License
-
 ```
 ---------------------------------
 The below license applies to the following files:
@@ -653,7 +649,6 @@ if advised of the possibility of such damage.
 ```
 
 #### Permissive License
-
 ```
 ---------------------------------
 The below license applies to the following files:
