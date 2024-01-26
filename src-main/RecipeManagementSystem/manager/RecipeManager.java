@@ -2,11 +2,12 @@ package RecipeManagementSystem.manager;
 
 import RecipeManagementSystem.model.Recipe;
 import RecipeManagementSystem.model.RecipeCatalog;
-
+import RecipeManagementSystem.model.RecipeSorter;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
+import RecipeManagementSystem.model.TitleSort;
+import RecipeManagementSystem.model.decorators.RecipeWithCreationDateDecorator;
 public class RecipeManager {
     private static RecipeManager instance;
     private RecipeCatalog recipeCatalog;
@@ -14,7 +15,7 @@ public class RecipeManager {
     private MealPlanManager mealPlanManager;
     private FileHandler fileHandler;
     private InputHandler inputHandler;
-
+    private List<Recipe> recipes;
     private RecipeManager() {
         this.recipeCatalog = new RecipeCatalog();
         this.shoppingListManager = new ShoppingListManager();
@@ -119,6 +120,17 @@ public class RecipeManager {
                 Recipe recipe = entry.getValue();
                 mealPlanManager.planMeal(day, recipe);
             }
+        }
+    }
+    // Inside RecipeManager class
+    public void sortRecipesByTitle() {
+        // Ensure 'recipes' list is not null
+        if (recipes != null) {
+            RecipeSorter sorter = new RecipeSorter();
+            sorter.setSortingStrategy(new TitleSort());
+            sorter.performSort(recipes);
+        } else {
+            System.out.println("Recipes list is null. Please make sure it is initialized.");
         }
     }
 

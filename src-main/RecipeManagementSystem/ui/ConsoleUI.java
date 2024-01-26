@@ -17,14 +17,23 @@ import RecipeManagementSystem.manager.UserAuthenticationManager;
 import RecipeManagementSystem.model.Recipe;
 import RecipeManagementSystem.model.decorators.RecipeDecorator;
 import RecipeManagementSystem.model.decorators.RecipeWithCreationDateDecorator;
-
+import RecipeManagementSystem.model.Subject;
+import RecipeManagementSystem.model.RecipeCatalog;
+import RecipeManagementSystem.model.CreationDateSort;
+import RecipeManagementSystem.ui.RecipeUI;
 public class ConsoleUI {
+    private static final Subject recipeCatalog = new RecipeCatalog();
     private static final InputHandler inputHandler = new InputHandler();
     private static final UserAuthenticationManager authenticationManager = UserAuthenticationManager.getInstance();
     private static final MealPlanManager mealPlanManager = new MealPlanManager();
     private static RecipeManager recipeManager;
 
     public static void main(String[] args) {
+        RecipeUI recipeUI1 = new RecipeUI(1, recipeCatalog);
+        RecipeUI recipeUI2 = new RecipeUI(2, recipeCatalog);
+        RecipeCatalog recipeCatalog = (RecipeCatalog) ConsoleUI.recipeCatalog;
+        recipeCatalog.addRecipe(new Recipe("New Recipe", "Description", List.of("Ingredient1", "Ingredient2")));
+
         recipeManager = initializeRecipeManager();
         boolean exitRequested = false;
 
