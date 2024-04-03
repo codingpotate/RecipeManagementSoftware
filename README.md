@@ -1,0 +1,1 @@
+This is a simple recipe management software currently with a half implemented GUI. Some features don't work, while some of them work very well. I'll be fixing the GUI and adding a database where it can get the saved recipes instead of using the file system to save them in later versions.
